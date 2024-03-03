@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { CustomHTTPResponse, apiUrl } from '../../common';
 import { Topic } from '../../models/topic.model';
 import { User } from '../../models/user.model';
@@ -9,12 +9,15 @@ import { User } from '../../models/user.model';
   providedIn: 'root',
 })
 export class TopicService {
+  private topicsSubject = new BehaviorSubject<Topic[]>([]);
+  topics$ = this.topicsSubject.asObservable();
+
   constructor(private http: HttpClient) {}
 
-  getTopics(): Observable<Topic[]> {
-    return this.http
+  getTopics() {
+    this.http
       .get<CustomHTTPResponse>(`${apiUrl}/topics`)
-      .pipe(map((res) => res.data));
+      .subscribe((res) => this.topicsSubject.next(res.data));
   }
 
   addTopic(topic: Topic) {
@@ -22,7 +25,9 @@ export class TopicService {
   }
 
   deleteTopic(topicId: any) {
-    return this.http.delete(`${apiUrl}/topic/${topicId}`);
+    return this.http
+      .delete(`${apiUrl}/topic/${topicId}`)
+      .subscribe(() => this.getTopics());
   }
 
   //POST /api/topic/:id/comment/add
@@ -52,6 +57,12 @@ export class TopicService {
 
   // DELETE /api/topic/:topicId/comment/:commentId
   deleteComment(topicId: number, commentId: number) {
-    return this.http.delete(`${apiUrl}/topic/${topicId}/comment/${commentId}`);
+    this.http
+      .delete(`${apiUrl}/topic/${topicId}/comment/${commentId}`)
+      .subscribe(() => this.getTopics());
+  }
+
+  updateTopics(topics: Topic[]) {
+    this.topicsSubject.next(topics);
   }
 }

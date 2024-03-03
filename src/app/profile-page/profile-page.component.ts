@@ -34,7 +34,7 @@ export class ProfilePageComponent implements OnInit {
     this.userService.getUser(this.userId).subscribe((user) => {
       this.user = user;
 
-      this.topicService.getTopics().subscribe((topics) => {
+      this.topicService.topics$.subscribe((topics) => {
         this.topicsWritten = topics
           .map((topic) => topic.author.id === user.id)
           .filter(Boolean).length;

@@ -17,6 +17,8 @@ export class HomePageComponent implements OnInit {
   constructor(private topicService: TopicService) {}
 
   ngOnInit(): void {
-    this.topicService.getTopics().subscribe((topics) => (this.topics = topics));
+    this.topicService.getTopics();
+    // .getTopics().subscribe((topics) => (this.topics = topics));
+    this.topicService.topics$.subscribe((topics) => (this.topics = topics));
   }
 }

@@ -26,9 +26,7 @@ export class TopicComponent {
   }
 
   deleteTopic() {
-    this.topicService
-      .deleteTopic(this.topic.id)
-      .subscribe((res) => console.log(res));
+    this.topicService.deleteTopic(this.topic.id);
   }
 
   get hasPermission(): boolean {

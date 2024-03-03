@@ -24,9 +24,7 @@ export class CommentComponent {
   ) {}
 
   deleteComment() {
-    this.topicService
-      .deleteComment(this.topic.id, this.comment.id)
-      .subscribe((res) => console.log(res));
+    this.topicService.deleteComment(this.topic.id, this.comment.id);
   }
 
   get hasPermission(): boolean {
