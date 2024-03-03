@@ -1,0 +1,23 @@
+<div class="p-4 rounded-lg bg-slate-700">
+  @if (user) {
+  <div class="p-4 rounded-lg bg-cyan-600">
+    <p>UserID: {{user.id}}</p>
+    <p>Username: {{user.name}}</p>
+    <p>Email: {{user.email}}</p>
+    <p>Role: {{user.role | role}}</p>
+    <p>Permissions</p>
+
+    <div class="">
+      <p [className]="permission > 0 ? 'bg-green-400' : 'bg-red-400'">Read comments (1)</p>
+      <p [className]="permission > 1 ? 'bg-green-400' : 'bg-red-400'">Add/delete comments (2)</p>
+      <p [className]="permission > 3 ? 'bg-green-400' : 'bg-red-400'">Add/delete topics (4)</p>
+      <p [className]="permission > 7 ? 'bg-green-400' : 'bg-red-400'">Delete others' comments/topics (8)</p>
+    </div>
+
+    <p>Number of topics written: {{topicsWritten}}</p>
+    <p>Number of comments written: {{commentsWritten}}</p>
+  </div>
+
+  <app-profile-update [user]="user"></app-profile-update>
+  }
+</div>

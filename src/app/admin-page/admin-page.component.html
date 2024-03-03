@@ -1,0 +1,19 @@
+@if (users) {
+<div class="flex mb-8">
+  <app-role-selector (roleSelected)="onRoleSelected($event)"></app-role-selector>
+
+  <div class="flex p-2">
+    <p>Selected Role: {{selectedRole | role}}</p>
+  </div>
+</div>
+
+<div class="grid gap-4">
+  <p class="uppercase text-lg">{{selectedRole | role}}</p>
+
+  <div class=" grid grid-cols-2 gap-8">
+    <app-users-list [users]="filteredUsers.usersByRole"></app-users-list>
+
+    <app-users-list [users]="filteredUsers.users"></app-users-list>
+  </div>
+</div>
+}

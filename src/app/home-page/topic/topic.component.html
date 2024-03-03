@@ -1,0 +1,44 @@
+<div class="p-4 border">
+  <div class="grid grid-flow-col">
+    <div class="">
+      <div class="text-xl">
+        <p>Author: {{topic.author.name}}</p>
+        <p>Title: {{topic.title}}</p>
+        <p>Body: {{topic.body}}</p>
+      </div>
+
+      <br>
+
+      <app-comment-add [type]="'comment'" [topic]="topic"></app-comment-add>
+    </div>
+
+    @if (hasPermission){
+    <div class="justify-self-end">
+      <button class="p-2 hover:bg-red-400 bg-red-600 rounded-lg" (click)="deleteTopic()">Delete Topic</button>
+    </div>
+    }
+  </div>
+
+  @if(expanded) {
+  @if (topic.comments.length > 0 && hasNonDeletedComments) {
+  @for (comment of topic.comments; track $index) {
+  @if(!comment.removed) {
+  <app-comment [topic]="topic" [comment]="comment" [depth]="0"></app-comment>
+  }
+  }
+  }
+  @else {
+  <div class="mt-4">
+    <p><i>No comments. Be the first one!</i></p>
+  </div>
+  }
+  }
+  @else {
+  <div (click)="expand()"
+    class="flex justify-center items-center h-8 border rounded-lg cursor-pointer hover:bg-slate-600 transition-all">
+    Click here to view
+    comments
+  </div>
+  }
+
+</div>

@@ -1,0 +1,19 @@
+<div class="relative">
+  <button (click)="toggleDropdown()" class="bg-blue-600 px-4 py-2 rounded-lg inline-flex items-center">
+    <span>Roles</span>
+    <svg class="fill-current h-4 w-4 ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+      <path d="M5 7l5 5 5-5z" />
+    </svg>
+  </button>
+
+  <!-- Dropdown menu -->
+  @if (isDropdownOpen) {
+  <div class="absolute left-0 mt-2 w-32 bg-slate-600 rounded-md shadow-lg">
+    <div class="py-1">
+      @for (role of roles; track $index) {
+      <button (click)="setCurrentRole(role)" class="block w-full px-4 py-2 hover:bg-slate-400 ">{{role | role}}</button>
+      }
+    </div>
+  </div>
+  }
+</div>

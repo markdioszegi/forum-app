@@ -1,0 +1,113 @@
+<!-- UPDATE FORM -->
+<div class="p-4 rounded-lg bg-slate-700">
+  <p>Update the user</p>
+
+  <form (ngSubmit)="onSubmitUser()" [formGroup]="userForm">
+    <div class="flex flex-col">
+      <!-- NAME -->
+      <label for="name">Name</label>
+      <input
+        class="px-2 py-1 text-gray-50 bg-slate-700 border rounded-lg focus:outline-none focus:border-white transform-all"
+        id="name" type="text" formControlName="name" minlength="5" required>
+
+      @if (!(name?.invalid && (name?.touched || name?.dirty))) {
+      <div class="p-2 invisible">placeholder</div>
+      }
+
+      @if (name?.invalid && (name?.touched || name?.dirty)) {
+      <div class="flex bg-red-400 p-2">
+        @if (name?.getError('required')) {
+        <div class="">
+          <p class="text-red-800">Name is required</p>
+        </div>}
+
+        @if (name?.getError('minlength')) {
+        <div class="">
+          <p class="text-red-800">Name must be at least 5 characters</p>
+        </div>
+        }
+      </div>
+      }
+
+      <!-- EMAIL -->
+      <label for="email">Email</label>
+      <input
+        class="px-2 py-1 text-gray-50 bg-slate-700 border rounded-lg focus:outline-none focus:border-white transform-all"
+        id="email" type="email" formControlName="email">
+
+      @if (!(email?.errors && (email?.touched || email?.dirty))) {
+      <div class="p-2 invisible">placeholder</div>
+      }
+
+      @if (email?.errors && (email?.touched || email?.dirty)) {
+      <div class="flex bg-red-400 p-2">
+        @if (email?.getError('required')) {
+        <div class="">
+          <p class="text-red-800">Email is required</p>
+        </div>
+        }
+
+        @if (email?.getError('email')) {
+        <div class="">
+          <p class="text-red-800">Must be a valid email</p>
+        </div>
+        }
+      </div>
+      }
+      <button class="disabled:bg-slate-800" type="submit" [disabled]="!userForm.valid">Update user data</button>
+    </div>
+  </form>
+
+  <!-- PASSWORD -->
+  <form (ngSubmit)="onSubmitPassword()" [formGroup]="passwordForm">
+    <div class="flex flex-col">
+      <label for="password">Password</label>
+      <input
+        class="px-2 py-1 text-gray-50 bg-slate-700 border rounded-lg focus:outline-none focus:border-white transform-all"
+        id="password" type="password" formControlName="password">
+
+      <label for="confirmPassword">Confirm password</label>
+      <input
+        class="px-2 py-1 text-gray-50 bg-slate-700 border rounded-lg focus:outline-none focus:border-white transform-all"
+        id="confirmPassword" type="password" formControlName="confirmPassword">
+
+
+      @if (!((password?.errors || passwordForm.errors) && (password?.touched || password?.dirty))) {
+      <div class="p-2 invisible">placeholder</div>
+      }
+
+      @if ((password?.errors || passwordForm.errors) && (password?.touched || password?.dirty)) {
+      <div class="flex bg-red-400 p-2">
+        @if (password?.getError('required')) {
+        <div class="">
+          <p class="text-red-800">Password is required</p>
+        </div>
+        }
+
+        @if (password?.getError('pattern')) {
+        <div class="">
+          <p class="text-red-800">Password must be at least 8 character long, contain 1 uppercase letter, 1 lowercase
+            letter, 1 digit</p>
+        </div>
+        }
+
+        @if (passwordForm.getError('mismatch') && (!password?.getError('required') && !password?.getError('pattern'))) {
+        <div class="">
+          <p class="text-red-800">Passwords do not match</p>
+        </div>
+        }
+      </div>
+      }
+
+      <button class="disabled:bg-slate-800" type="submit" [disabled]="!passwordForm.valid">Update password</button>
+    </div>
+  </form>
+</div>
+
+<div class="flex gap-3 mt-16">
+  <h3>{{userForm.get("name")?.value}}</h3>
+  <h3>{{userForm.get("email")?.value}}</h3>
+  <h3>{{userForm.get("password")?.value}}</h3>
+</div>
+
+<p>Strong PW u3Nf/p+BxZy9D_"^qvXze</p>

@@ -1,0 +1,31 @@
+@if (hasPermission) {
+<form #topicForm="ngForm" (ngSubmit)="onSubmit()">
+  <div class="border rounded-lg mt-8 p-4 grid items-center justify-items-center gap-4">
+    <p class="text-lg">Add new topic</p>
+
+    <label for="title">Title</label>
+    <input
+      class="px-2 py-1 text-gray-50 bg-slate-700 border rounded-lg focus:outline-none focus:border-white transform-all"
+      id="title" name="title" type="text" [(ngModel)]="topic.title" #title="ngModel" required>
+
+    @if (title.invalid && (title.dirty || title.touched)) {
+    <div class="">
+      <p class="text-red-800">Field is required</p>
+    </div>
+    }
+
+    <label for="title">Body</label>
+    <input
+      class="px-2 py-1 text-gray-50 bg-slate-700 border rounded-lg focus:outline-none focus:border-white transform-all"
+      id="body" name="body" type="text" [(ngModel)]="topic.body" #body="ngModel" required>
+
+    @if (body.invalid && (body.dirty || body.touched)) {
+    <div class="">
+      <p class="text-red-800">Field is required</p>
+    </div>
+    }
+
+    <button type="submit" class="" [disabled]="!topicForm.form.valid">Submit</button>
+  </div>
+</form>
+}

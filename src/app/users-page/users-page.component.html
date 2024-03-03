@@ -1,0 +1,12 @@
+@for (user of users; track $index) {
+<div class="flex justify-between hover:bg-slate-800">
+  <div [routerLink]="['/profile-page', user.id]" class="flex flex-col w-128 hover:cursor-pointer hover:bg-slate-600">
+    <p>User ID: {{user.id}}</p>
+    <p>Username: {{user.name}}</p>
+    <p>Email: {{user.email}}</p>
+  </div>
+  <div class="flex">
+    <button (click)="selectActiveUser(user)" class="hover:bg-slate-600">Select Active User</button>
+  </div>
+</div>
+}

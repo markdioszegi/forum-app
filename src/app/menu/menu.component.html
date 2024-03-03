@@ -1,0 +1,19 @@
+<div class="flex items-center p-4 gap-4">
+  <a routerLink="home-page">
+    <button class="w-16 h-8 rounded-lg bg-blue-600 hover:bg-blue-400 transition-all">Home</button>
+  </a>
+
+  <a routerLink="admin-page">
+    <button class="w-16 h-8 rounded-lg bg-blue-600 hover:bg-blue-400 transition-all">Admin</button>
+  </a>
+
+  <a routerLink="users-page">
+    <button class="w-16 h-8 rounded-lg bg-blue-600 hover:bg-blue-400 transition-all">Users</button>
+  </a>
+
+  @if (activeUser) {
+  <div class="">
+    <p>Active user: {{activeUser.name}} ({{activeUser.id}}) ({{activeUser.role | role}})</p>
+  </div>
+  }
+</div>

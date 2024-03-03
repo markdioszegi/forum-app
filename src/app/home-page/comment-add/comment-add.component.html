@@ -1,0 +1,17 @@
+@if (hasPermission) {
+<form #commentForm="ngForm" (ngSubmit)="onSubmit()">
+  <div class="flex gap-3">
+    <input id="commentBody" class="p-2 border bg-slate-700" name="body" type="text" [placeholder]="type === 'reply' ?
+    'Write a reply...' : 'Write a comment...'" required [(ngModel)]=" commentBody" #body="ngModel" />
+
+    @if (body.invalid && (body.dirty || body.touched)) {
+    <div class="flex items-center">
+      <p class="text-red-800">Field is required</p>
+    </div>
+    }
+
+    <button class="p-2 rounded-lg border" type="submit" [disabled]="!commentForm.form.valid">{{type === 'reply' ?
+      "Reply" : "Comment"}}</button>
+  </div>
+</form>
+}
