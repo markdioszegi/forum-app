@@ -2,13 +2,33 @@
 <div class="flex mb-8">
   <app-role-selector (roleSelected)="onRoleSelected($event)"></app-role-selector>
 
-  <div class="flex p-2">
-    <p>Selected Role: {{selectedRole | role}}</p>
+  <div class="flex p-2 w-32">
+    <p>Selected Role: {{selectedRole.id | role}}</p>
   </div>
+
+  <div class="p-4">
+    <p class="text-xl border-b-2 border-slate-200">Available Rights</p>
+    <p [className]="selectedRole.rights > 0 ? 'bg-green-400' : 'bg-red-400'">Read comments (1)</p>
+    <p [className]="selectedRole.rights > 1 ? 'bg-green-400' : 'bg-red-400'">Add/delete comments (2)</p>
+    <p [className]="selectedRole.rights > 3 ? 'bg-green-400' : 'bg-red-400'">Add/delete topics (4)</p>
+    <p [className]="selectedRole.rights > 7 ? 'bg-green-400' : 'bg-red-400'">Delete others' comments/topics (8)</p>
+  </div>
+
+  <form (ngSubmit)="onSubmit()" #roleEditForm="ngForm" action="">
+    <div class="grid gap-4">
+      <input name="rights" min="1" max="15" type="range" [(ngModel)]="selectedRole.rights">
+      <input #name="ngModel" class="bg-slate-800 border p-2 rounded-lg" type="text" name="name" placeholder="Role Name"
+        required [(ngModel)]="selectedRole.name">
+      <p [hidden]="name.valid" class="text-red-800">Field is required</p>
+
+      <button [disabled]="!roleEditForm.form.valid" class="p-2 border rounded-lg hover:bg-slate-600"
+        type="submit">Update Role</button>
+    </div>
+  </form>
 </div>
 
 <div class="grid gap-4">
-  <p class="uppercase text-lg">{{selectedRole | role}}</p>
+  <p class="uppercase text-lg">{{selectedRole.id | role}}</p>
 
   <div class=" grid grid-cols-2 gap-8">
     <app-users-list [users]="filteredUsers.usersByRole"></app-users-list>

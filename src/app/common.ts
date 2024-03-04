@@ -13,6 +13,13 @@ export enum ROLES {
   Gold,
 }
 
+export enum RIGHTS {
+  'Readcomments' = 1,
+  'Add/deletecomments' = 2,
+  'Add/delete topics' = 4,
+  "Delete others' comments/topics" = 8,
+}
+
 export function getPermissionLevel(role: ROLES): number {
   switch (role) {
     case ROLES.Admins:
